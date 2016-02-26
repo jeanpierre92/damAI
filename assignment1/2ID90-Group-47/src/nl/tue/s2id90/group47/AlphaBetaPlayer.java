@@ -23,6 +23,7 @@ public class AlphaBetaPlayer extends DraughtsPlayer {
     }
     
     @Override
+    /** @return an illegal move **/
     public Move getMove(DraughtsState s) {
        Node topNode = new Node(s);
         try {
