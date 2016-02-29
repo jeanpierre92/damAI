@@ -20,10 +20,14 @@ import org10x10.dam.game.Move;
 public class AlphaBetaPlayerJP extends DraughtsPlayer {
 
     private boolean stopped;
+    private int[] allPieces;
+    private int totalScore;
     
     public AlphaBetaPlayerJP() {
         super(AlphaBetaPlayer.class.getResource("resources/smiley.png"));
         stopped = false;
+        allPieces = null;
+        totalScore = 0;
     }
     
     @Override
@@ -126,20 +130,119 @@ public class AlphaBetaPlayerJP extends DraughtsPlayer {
     }
 
     private int evalFunction(Node node) {
-        // write evaluation function here
-        // this returns an integer value about how many/more or less white
-        // pieces has than black. eg: if returns 4 then white has 4 more pieces
-        // than black
-        int pieceDifference = 0;
-        int[] AllPieces = node.getGameState().getPieces();
-        for (int p : AllPieces) {
-            if ((p == 1 || p == 3)) {
-                pieceDifference += 1;
-            } else if ((p == 2 || p == 4)) {
-                pieceDifference -= 1;
-            }
-        }
-        return pieceDifference;
+        /**
+ * <blockquote><pre>
+ *   col  0  1  2  3  4  5  6  7  8  9
+ *  row ------------------------------
+ *   0  |    21    21    21    21    21
+ *      |
+ *   1  | 18    19    19    19    18
+ *      |
+ *   2  |    14    15    15    15    14
+ *      |
+ *   3  | 13    14    14    14    13
+ *      |
+ *   4  |    12    13    13    13    12
+ *      |
+ *   5  | 11    12    12    12    11
+ *      |
+ *   6  |    10    10    10    10    10
+ *      |
+ *   7  | 10    10    10    10    10
+ *      |
+ *   8  |    10    10    10    10    10
+ *      |
+ *   9  | 10    10    10    10    10
+ * </pre></blockquote>
+ * @author huub
+ */
+        // evaluation function for the while player.
+        // WHITEKING is always +22
+        // BLACKKING is always -22
+        // The rest depends on the score above
+        int score = 0;
+        allPieces = node.getGameState().getPieces();
+        
+        // row 0      
+        score += scorePerPosition(1, 21, 22, 10, 22);
+        score += scorePerPosition(2, 21, 22, 10, 22);
+        score += scorePerPosition(3, 21, 22, 10, 22);
+        score += scorePerPosition(4, 21, 22, 10, 22);
+        score += scorePerPosition(5, 21, 22, 10, 22);
+        
+        // row 1
+        score += scorePerPosition(6, 18, 22, 10, 22);
+        score += scorePerPosition(7, 19, 22, 10, 22);
+        score += scorePerPosition(8, 19, 22, 10, 22);
+        score += scorePerPosition(9, 19, 22, 10, 22);
+        score += scorePerPosition(10, 18, 22, 10, 22);
+        
+        // row 2
+        score += scorePerPosition(11, 14, 22, 10, 22);
+        score += scorePerPosition(12, 15, 22, 10, 22);
+        score += scorePerPosition(13, 15, 22, 10, 22);
+        score += scorePerPosition(14, 15, 22, 10, 22);
+        score += scorePerPosition(15, 14, 22, 10, 22);
+        
+        // row 3
+        score += scorePerPosition(16, 13, 22, 10, 22);
+        score += scorePerPosition(17, 14, 22, 10, 22);
+        score += scorePerPosition(18, 14, 22, 10, 22);
+        score += scorePerPosition(19, 14, 22, 10, 22);
+        score += scorePerPosition(20, 13, 22, 10, 22);
+        
+        // row 4
+        score += scorePerPosition(21, 12, 22, 11, 22);
+        score += scorePerPosition(22, 13, 22, 12, 22);
+        score += scorePerPosition(23, 13, 22, 12, 22);
+        score += scorePerPosition(24, 13, 22, 12, 22);
+        score += scorePerPosition(25, 12, 22, 11, 22);
+        
+        // row 5
+        score += scorePerPosition(26, 11, 22, 12, 22);
+        score += scorePerPosition(27, 12, 22, 13, 22);
+        score += scorePerPosition(28, 12, 22, 13, 22);
+        score += scorePerPosition(29, 12, 22, 13, 22);
+        score += scorePerPosition(30, 11, 22, 12, 22);
+        
+        // row 6
+        score += scorePerPosition(31, 10, 22, 13, 22);
+        score += scorePerPosition(32, 10, 22, 14, 22);
+        score += scorePerPosition(33, 10, 22, 14, 22);
+        score += scorePerPosition(34, 10, 22, 14, 22);
+        score += scorePerPosition(35, 10, 22, 13, 22);
+        
+        // row 7
+        score += scorePerPosition(36, 10, 22, 14, 22);
+        score += scorePerPosition(37, 10, 22, 15, 22);
+        score += scorePerPosition(38, 10, 22, 15, 22);
+        score += scorePerPosition(39, 10, 22, 15, 22);
+        score += scorePerPosition(40, 10, 22, 14, 22);
+        
+        // row 8
+        score += scorePerPosition(41, 10, 22, 18, 22);
+        score += scorePerPosition(42, 10, 22, 19, 22);
+        score += scorePerPosition(43, 10, 22, 19, 22);
+        score += scorePerPosition(44, 10, 22, 19, 22);
+        score += scorePerPosition(45, 10, 22, 18, 22);
+        
+        // row 9
+        score += scorePerPosition(46, 10, 22, 21, 22);
+        score += scorePerPosition(47, 10, 22, 21, 22);
+        score += scorePerPosition(48, 10, 22, 21, 22);
+        score += scorePerPosition(49, 10, 22, 21, 22);
+        score += scorePerPosition(50, 10, 22, 21, 22);
+        
+        return score;
+    }
+    
+    private int scorePerPosition(int position, int score1, int score2, int score3, int score4) {
+        totalScore = 0;
+        if (allPieces[position] == DraughtsState.WHITEPIECE) {totalScore += score1;}
+        else if (allPieces[position] == DraughtsState.WHITEKING) {totalScore += score2;}
+        else if (allPieces[position] == DraughtsState.BLACKPIECE) {totalScore -= score3;}
+        else if (allPieces[position] == DraughtsState.BLACKKING) {totalScore -= score4;}
+        return totalScore;
     }
     
     public void stop() {
