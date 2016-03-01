@@ -146,13 +146,13 @@ public class AlphaBetaPlayerJP extends DraughtsPlayer {
  *      |
  *   5  | 11    12    12    12    11
  *      |
- *   6  |    10    10    10    10    10
+ *   6  |    10    11    11    11    10
  *      |
  *   7  | 10    10    10    10    10
  *      |
  *   8  |    10    10    10    10    10
  *      |
- *   9  | 10    10    10    10    10
+ *   9  | 10    10    12    10    10
  * </pre></blockquote>
  * @author huub
  */
@@ -166,7 +166,7 @@ public class AlphaBetaPlayerJP extends DraughtsPlayer {
         // row 0      
         score += scorePerPosition(1, 21, 22, 10, 22);
         score += scorePerPosition(2, 21, 22, 10, 22);
-        score += scorePerPosition(3, 21, 22, 10, 22);
+        score += scorePerPosition(3, 21, 22, 12, 22);
         score += scorePerPosition(4, 21, 22, 10, 22);
         score += scorePerPosition(5, 21, 22, 10, 22);
         
@@ -186,9 +186,9 @@ public class AlphaBetaPlayerJP extends DraughtsPlayer {
         
         // row 3
         score += scorePerPosition(16, 13, 22, 10, 22);
-        score += scorePerPosition(17, 14, 22, 10, 22);
-        score += scorePerPosition(18, 14, 22, 10, 22);
-        score += scorePerPosition(19, 14, 22, 10, 22);
+        score += scorePerPosition(17, 14, 22, 11, 22);
+        score += scorePerPosition(18, 14, 22, 11, 22);
+        score += scorePerPosition(19, 14, 22, 11, 22);
         score += scorePerPosition(20, 13, 22, 10, 22);
         
         // row 4
@@ -207,9 +207,9 @@ public class AlphaBetaPlayerJP extends DraughtsPlayer {
         
         // row 6
         score += scorePerPosition(31, 10, 22, 13, 22);
-        score += scorePerPosition(32, 10, 22, 14, 22);
-        score += scorePerPosition(33, 10, 22, 14, 22);
-        score += scorePerPosition(34, 10, 22, 14, 22);
+        score += scorePerPosition(32, 11, 22, 14, 22);
+        score += scorePerPosition(33, 11, 22, 14, 22);
+        score += scorePerPosition(34, 11, 22, 14, 22);
         score += scorePerPosition(35, 10, 22, 13, 22);
         
         // row 7
@@ -229,7 +229,7 @@ public class AlphaBetaPlayerJP extends DraughtsPlayer {
         // row 9
         score += scorePerPosition(46, 10, 22, 21, 22);
         score += scorePerPosition(47, 10, 22, 21, 22);
-        score += scorePerPosition(48, 10, 22, 21, 22);
+        score += scorePerPosition(48, 12, 22, 21, 22);
         score += scorePerPosition(49, 10, 22, 21, 22);
         score += scorePerPosition(50, 10, 22, 21, 22);
         
