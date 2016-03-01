@@ -17,12 +17,12 @@ import org10x10.dam.game.Move;
  * and values all moves with value 0.S
  * @author huub
  */
-public class AlphaBetaPlayer extends DraughtsPlayer {
+public class AlphaBetaPlayerBer extends DraughtsPlayer {
 
     private boolean stopped;
     
-    public AlphaBetaPlayer() {
-        super(AlphaBetaPlayer.class.getResource("resources/smiley.png"));
+    public AlphaBetaPlayerBer() {
+        super(AlphaBetaPlayerBer.class.getResource("resources/smiley.png"));
         stopped = false;
     }
     
